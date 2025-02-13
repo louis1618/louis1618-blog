@@ -33,7 +33,7 @@ function Sidebar() {
     <aside>
       <div className="logo">
         <a href="/home">
-          <img src={logo} alt="Yoonsuck" className="logo_img" />
+          <img src={logo} alt="louis1618" className="logo_img" />
         </a>
       </div>
       <nav className="side-nav">
@@ -47,26 +47,26 @@ function Sidebar() {
         >
           <i className="fa-solid fa-house fa-lg"></i> 홈
         </NavLink>
-        <NavLink to="/vote" className={({ isActive }) => (isActive ? 'active' : '')}>
-          <i className="fa-solid fa-square-poll-horizontal fa-xl"></i> 투표 조회
+        <NavLink to="/project" className={({ isActive }) => (isActive ? 'active' : '')}>
+          <i className="fa-solid fa-square-poll-horizontal fa-xl"></i> 프로젝트
         </NavLink>
         <NavLink
-          to="/message"
+          to="/source"
           className={({ isActive }) => (isActive ? 'active' : '')}
         >
-          <i className="fa-solid fa-comments fa-lg"></i> 메세지 보내기
+          <i className="fa-solid fa-comments fa-lg"></i> 오픈소스
         </NavLink>
         <NavLink
-          to="/notice"
+          to="/archives"
           className={({ isActive }) => (isActive ? 'active' : '')}
         >
-          <i className="fas fa-user-group fa-lg"></i> 공지사항
+          <i class="fa-solid fa-star fa-lg"></i> 업적
         </NavLink>
         <NavLink
-          to="/webproxy"
+          to="/about"
           className={({ isActive }) => (isActive ? 'active' : '')}
         >
-        <i class="fa-solid fa-server fa-xl"></i> 웹 프록시
+       <i class="fa-solid fa-circle-info fa-lg"></i> 정보
         </NavLink>
       </nav>
       <div className="quick-links">
@@ -75,7 +75,7 @@ function Sidebar() {
             <i className="fa-solid fa-user-large fa-lg"></i> {user.username}
             {showPopup && (
               <div className="user-popup">
-                <button onClick={() => alert('아직 안만들었으니까 기다리셈')}>
+                <button onClick={() => alert('개발 중 입니다')}>
                   설정
                 </button>
                 <button onClick={handleLogout}>로그아웃</button>

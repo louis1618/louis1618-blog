@@ -3,11 +3,11 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import './App.css';
 import LoadingScreen from './components/LoadingScreen';
 import Home from './pages/Home';
-import Vote from './pages/Vote';
-import Notice from './pages/Notice';
-import Direct from './pages/direct';
+import Project from './pages/Project';
+import Archives from './pages/Archives';
+import Source from './pages/Source';
 import Login from './pages/Login';
-import Proxy from './pages/Proxy';
+import About from './pages/About';
 import Signup from './pages/Signup';
 import NotFound from './pages/404';
 import GuestLayout from './components/GuestLayout';
@@ -96,12 +96,11 @@ function App() {
 
             <Route element={<MainLayout />}>
             <Route path="/home" element={<Home />} />
-                <Route path="/vote" element={<Vote />} />
-                <Route path="/notice" element={<Notice />} />
-                <Route path="/message" element={<Direct />} />
-                <Route path="/proxy" element={<Proxy />} />
+                <Route path="/project" element={<Project />} />
+                <Route path="/archives" element={<Archives />} />
+                <Route path="/source" element={<Source />} />
                 <Route path="/posts/view/:id" element={<PostDetail/>} />
-                <Route path="/webproxy" element={<Proxy/>} />
+                <Route path="/about" element={<About/>} />
             </Route>
 
             <Route element={<PrivateRoute><MainLayout /></PrivateRoute>}>
