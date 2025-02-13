@@ -17,7 +17,7 @@ const io = require('socket.io')(http);
 const port = 3001;
 
 app.use((req, res, next) => {
-    if (req.hostname === 'louis1618.onrender.com') {
+    if (req.hostname === 'louis1618-blog.onrender.com') {
         return res.redirect(301, `https://blog.louis1618.shop${req.originalUrl}`);
     }
     next();
