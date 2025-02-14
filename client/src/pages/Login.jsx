@@ -48,7 +48,7 @@ function Login() {
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            require   
+            required
 d
           />
           <button className={styles.custombutton} type="submit">

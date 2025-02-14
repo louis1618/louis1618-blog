@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/auth.module.css';
-import logo from '../assets/img/logo_model_3.svg';
+import logo from '../assets/img/logo_background.svg';
 
 function Signup() {
   const [username, setUsername] = useState('');
@@ -40,7 +40,7 @@ function Signup() {
       <div className={styles.container}>
         <div className={styles.header2}>
           <div className={styles.logo}>
-            <img src={logo} alt="Jokga School Alpha" className={styles.logo_img} />
+            <img src={logo} alt="louis1618" className={styles.logo_img} />
           </div>
         </div>
 
