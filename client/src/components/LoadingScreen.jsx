@@ -9,7 +9,7 @@ function LoadingScreen({ progress }) {
       <div id="progress-container">
         <div id="progress-bar" style={{ width: `${progress}%` }}></div>
       </div>
-      <div id="loading-text">해누리 조지는 중...</div>
+      <div id="loading-text">응애</div>
     </div>
   );
 }
