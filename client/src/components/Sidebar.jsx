@@ -1,5 +1,5 @@
 import React, { useContext, useState, useRef, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import '../styles/Sidebar.css';
 import { AuthContext } from '../AuthContext';
 import logo from '../assets/img/logo_background.svg';
@@ -8,6 +8,8 @@ function Sidebar() {
   const { user, isAuthenticated, logout } = useContext(AuthContext);
   const [showPopup, setShowPopup] = useState(false);
   const popupRef = useRef(null);
+  const location = useLocation();
+  const redirectUrl = encodeURIComponent(location.pathname);
 
   const handleClickOutside = (event) => {
     if (popupRef.current && !popupRef.current.contains(event.target)) {
@@ -60,19 +62,19 @@ function Sidebar() {
           to="/archives"
           className={({ isActive }) => (isActive ? 'active' : '')}
         >
-          <i class="fa-solid fa-star fa-lg"></i> 업적
+          <i className="fa-solid fa-star fa-lg"></i> 업적
         </NavLink>
         <NavLink
           to="/about"
           className={({ isActive }) => (isActive ? 'active' : '')}
         >
-       <i class="fa-solid fa-circle-info fa-lg"></i> 정보
+       <i className="fa-solid fa-circle-info fa-lg"></i> 정보
         </NavLink>
       </nav>
       <div className="quick-links">
         {isAuthenticated ? (
           <div className="user-button" onClick={togglePopup} ref={popupRef}>
-            <i className="fa-solid fa-user-large fa-lg"></i> {user.username}
+            <i className="fa-solid fa-user-large fa-lg"></i> {user.user_handle}
             {showPopup && (
               <div className="user-popup">
                 <button onClick={() => alert('개발 중 입니다')}>
@@ -83,9 +85,9 @@ function Sidebar() {
             )}
           </div>
         ) : (
-          <NavLink className='user-button' to="/login">
-            <i className="fa-solid fa-user-large fa-lg"></i> 로그인
-          </NavLink>
+        <NavLink className='user-button' to={`/auth/login?redirect=${redirectUrl}`}>
+          <i className="fa-solid fa-user-large fa-lg"></i> 로그인
+        </NavLink>
         )}
       </div>
     </aside>

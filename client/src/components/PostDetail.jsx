@@ -62,7 +62,7 @@ const PostDetail = () => {
           console.log(response);
           return alert('관리자 외 댓글을 작성할 수 없는 게시물 입니다.');
         } else if (response.status === 404) {
-          navigate('/login');
+          navigate('/auth/login');
           return alert('로그인 후 이용하세요.')
         } else {
           return alert('알 수 없는 오류가 발생했습니다.');

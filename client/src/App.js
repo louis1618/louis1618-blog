@@ -76,26 +76,15 @@ function App() {
         {loading ? (
           <LoadingScreen progress={progress} />
         ) : (
-          // 배포할 때 이 코드대로 수정하지 않으면 좆될 것이 분명하니 꼭 수정할 것. FUCK.
-          // ==================================================================
-          //  <Route element={<PrivateRoute><MainLayout /></PrivateRoute>}>
-          //     <Route path="/home" element={<Home />} />
-          //     <Route path="/vote" element={<Vote />} />
-          //     <Route path="/notice" element={<Notice />} />
-          //     <Route path="/message" element={<Direct />} />
-          //     <Route path="/proxy" element={<Proxy />} />
-          //     <Route path="/posts/view/:id" element={<PostDetail/>} />
-          //  </Route>
-          // ==================================================================
           <Routes>
             <Route element={<GuestLayout />}>
-              <Route path="/" element={isAuthenticated ? <Navigate to="/home" /> : <Login />} />
-              <Route path="/login" element={isAuthenticated ? <Navigate to="/home" /> : <Login />} />
-              <Route path="/signup" element={isAuthenticated ? <Navigate to="/home" /> : <Signup />} />
+              <Route path="/" element={<Navigate to="/home" />} />
+              <Route path="/auth/login" element={isAuthenticated ? <Navigate to="/home" /> : <Login />} />
+              <Route path="/auth/signup" element={isAuthenticated ? <Navigate to="/home" /> : <Signup />} />
             </Route>
 
             <Route element={<MainLayout />}>
-            <Route path="/home" element={<Home />} />
+                <Route path="/home" element={<Home />} />
                 <Route path="/project" element={<Project />} />
                 <Route path="/archives" element={<Archives />} />
                 <Route path="/source" element={<Source />} />

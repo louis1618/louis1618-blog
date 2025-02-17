@@ -4,15 +4,25 @@ const { ObjectId } = require('mongodb');
 async function getComments(req, res) {
     const { postId } = req.params;
     const commentsCollection = getCommentsCollection();
+    const usersCollection = getUsersCollection();
 
     try {
         const comments = await commentsCollection.find({ postId: new ObjectId(postId) }).toArray();
+
+        for (let comment of comments) {
+            const user = await usersCollection.findOne({ _id: new ObjectId(comment.userId) });
+            if (user) {
+                comment.author = user.userHandle;
+            }
+        }
+
         res.status(200).json(comments);
     } catch (error) {
         console.error('Error fetching comments:', error);
         res.status(500).json({ message: '서버 오류가 발생했습니다.' });
     }
 }
+
 
 async function createComment(req, res) {
     const { postId, content } = req.body;
@@ -49,7 +59,7 @@ async function createComment(req, res) {
 
         const newComment = {
             postId: new ObjectId(postId),
-            author: userData.username,
+            author: userData.userHandle,
             userId: userData._id,
             content,
             createdAt: new Date()

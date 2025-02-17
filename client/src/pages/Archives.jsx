@@ -8,7 +8,7 @@ function MainContent() {
   return (
     <section className="content">
       <div className="home-header">
-        {isAuthenticated === true ? <h1 id="username">{user.username} 님에게 공개하는 나의 업적</h1> : <h1>이걸 보고 있는 당신에게 공개하는 나의 업적적</h1>}
+        {isAuthenticated === true ? <h1 id="username">{user.user_handle} 님에게 공개하는 나의 업적</h1> : <h1>이걸 보고 있는 당신에게 공개하는 나의 업적적</h1>}
       </div>
 
       <div className="notice-section">

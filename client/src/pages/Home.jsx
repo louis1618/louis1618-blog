@@ -1,9 +1,11 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback, useContext } from "react";
 import "../styles/Home.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import avator from "../assets/img/user-avatar.svg";
+import { AuthContext } from "../AuthContext";
 
 const MainContent = () => {
+  const { isAuthenticated, user } = useContext(AuthContext);
   const [activeTab, setActiveTab] = useState("all");
   const [posts, setPosts] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
@@ -142,13 +144,13 @@ const MainContent = () => {
         body: JSON.stringify(newPost),
       });
 
-      if (response.status === 201) {
+      if (response.status === 200) {
         const updatedPosts = await response.json();
         setPosts(updatedPosts);
         setShowPopup(false);
         setErrorMessage("");
       } else if (response.status === 403) {
-        navigate("/login");
+        navigate("/auth/login");
         return alert("로그인 후 이용하세요.");
       } else {
         const errorData = await response.json();
@@ -163,14 +165,16 @@ const MainContent = () => {
   return (
     <section className="content">
       <div className="posts-layout-list">
-        <div className="community-header">
-          <div className="create-post-button" onClick={() => setShowPopup(true)}>
-            <img src={avator} alt="사용자 아바타" />
-            포스트 작성하기
+        {/* 조건 추가: isAuthenticated와 user.rank 체크 */}
+        {isAuthenticated && user.rank === 5 && (
+          <div className="community-header">
+            <div className="create-post-button" onClick={() => setShowPopup(true)}>
+              <img src={avator} alt="사용자 아바타" />
+              포스트 작성하기
+            </div>
           </div>
-        </div>
+        )}
 
-        {/* 오류 메시지 표시 */}
         {errorMessage && <div className="error-message">{errorMessage}</div>}
 
         {!errorMessage && (
@@ -198,20 +202,13 @@ const MainContent = () => {
 
             <div className="community-posts">
               {filteredPosts &&
-                filteredPosts.map((post, index) => (
-                  <NavLink
-                    to={`/posts/view/${post._id}`}
-                    key={post._id}
-                    className="post-item"
-                  >
+                filteredPosts.map((post) => (
+                  <NavLink to={`/posts/view/${post._id}`} key={post._id} className="post-item">
                     <div className="post-header">
-                      {post.author && (
-                        <span className="post-author">{post.author}</span>
-                      )}
-                      {post.date && (
-                        <span className="post-date">{post.date}</span>
-                      )}
+                      {post.author && <span className="post-author">{post.author}</span>}
+                      {post.date && <span className="post-date">{post.date}</span>}
                     </div>
+
                     <h2 className="post-title">{post.title}</h2>
                     <p className="post-description">{post.description}</p>
                     <div className="post-tags">
@@ -221,9 +218,7 @@ const MainContent = () => {
                         </span>
                       ))}
                     </div>
-                    {post.rank && (
-                      <span className="post-rank">{post.rank}</span>
-                    )}
+                    {post.rank && <span className="post-rank">{post.rank}</span>}
                   </NavLink>
                 ))}
               {!allPostsLoaded && <div ref={targetRef} className="loading"></div>}
@@ -269,9 +264,7 @@ const MainContent = () => {
                 </label>
                 <button type="submit">포스트 제출</button>
               </form>
-              {errorMessage2 && (
-                <p className="error-message2">{errorMessage2}</p>
-              )}
+              {errorMessage2 && <p className="error-message2">{errorMessage2}</p>}
             </div>
           </div>
         )}

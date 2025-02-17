@@ -21,12 +21,12 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const login = async (username, password) => {
+  const login = async (userHandle, password) => {
     try {
       const response = await fetch('/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ userHandle, password }),
       });
       const data = await response.json();
       if (response.ok) {
@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }) => {
       }
     } catch (error) {
       console.error('Login failed:', error);
-      return { success: false, message: '로그인 중 오류가 발생했습니다.' };
+      return { success: false, message: '로그인 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.' };
     }
   };
 

@@ -17,24 +17,31 @@ async function getPost(req, res) {
 }
 
 async function getAllPosts(req, res) {
-    try {
-      const page = parseInt(req.query.page) || 1; // 페이지 번호
-      const limit = parseInt(req.query.limit) || 10; // 페이지당 게시물 개수
-      const skip = (page - 1) * limit; // 건너뛸 게시물 개수
-  
-      const posts = await getPostsCollection()
-        .find()
-        .sort({ createdAt: -1 }) // 최신 게시물이 먼저 오도록 정렬
-        .skip(skip)
-        .limit(limit)
-        .toArray();
-  
-      res.json(posts);
-    } catch (error) {
-      console.error('Error fetching posts:', error);
-      res.status(500).json({ message: '서버 오류가 발생했습니다.' });
+  try {
+    const page = parseInt(req.query.page) || 1; // 페이지 번호
+    const limit = parseInt(req.query.limit) || 10; // 페이지당 게시물 개수
+    const skip = (page - 1) * limit; // 건너뛸 게시물 개수
+
+    const posts = await getPostsCollection()
+      .find()
+      .sort({ createdAt: -1 }) // 최신 게시물이 먼저 오도록 정렬
+      .skip(skip)
+      .limit(limit)
+      .toArray();
+
+    for (let post of posts) {
+      const user = await getUsersCollection().findOne({ _id: new ObjectId(post.a_id) });
+      if (user) {
+        post.author = user.userHandle;
+      }
     }
+
+    res.json(posts);
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+    res.status(500).json({ message: '서버 오류가 발생했습니다.' });
   }
+}
 
 async function createPost(req, res) {
   try {
@@ -56,13 +63,13 @@ async function createPost(req, res) {
         newPost.rank = user.rank === 5 ? "관리자" : "유저";
         newPost.date = formatDate(new Date());
         newPost.createdAt = new Date();
-        newPost.author = userData.username;
+        newPost.author = userData.userHandle;
         newPost.a_id = userData._id;
         newPost.comment_up = 1;
 
         await getPostsCollection().insertOne(newPost);
         const posts = await getPostsCollection().find().toArray();
-        res.status(201).json(posts);
+        res.status(200).json(posts);
       } else {
         res.status(400).json({ message: '비정상적인 행동이 감지되었습니다.' });
       }

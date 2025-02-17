@@ -1,28 +1,32 @@
 import React, { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import styles from '../styles/auth.module.css';
 import logo from '../assets/img/logo_background.svg';
 import { AuthContext } from '../AuthContext';
 
 function Login() {
-  const [username, setUsername] = useState('');
+  const [userHandle, setUserHandle] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const { login, isAuthenticated } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const params = new URLSearchParams(location.search);
+  const redirect = params.get('redirect') || '/home'; 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const result = await login(username, password);
+    const result = await login(userHandle, password);
     if (result.success) {
-      navigate('/home');
+      navigate(redirect, { replace: true });
     } else {
       setError(result.message);
     }
   };
 
   if (isAuthenticated) {
-    navigate('/home');
+    navigate(redirect);
     return null;
   }
 
@@ -30,16 +34,16 @@ function Login() {
     <main>
       <div className={styles.container}>
         <div className={styles.header2}>
-          <img src={logo} alt="Jokga School Alpha" className={styles.logo_img} />
+          <img src={logo} alt="louis1618" className={styles.logo_img} />
         </div>
 
         <form onSubmit={handleSubmit}>
-          <label htmlFor="username">아이디:</label>
+          <label htmlFor="userHandle">아이디:</label>
           <input
             type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            id="userHandle"
+            value={userHandle}
+            onChange={(e) => setUserHandle(e.target.value)}
             required
           />
           <label htmlFor="password">비밀번호:</label>
@@ -49,7 +53,6 @@ function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-d
           />
           <button className={styles.custombutton} type="submit">
             로그인
@@ -58,7 +61,7 @@ d
         {error && <div style={{ color: 'red', marginTop: '10px' }}>{error}</div>}
         <div className={styles.signupLink}>
           <p>
-            계정이 없으신가요? <a href="/signup">회원가입</a>
+            계정이 없으신가요? <a href="/auth/signup">회원가입</a>
           </p>
         </div>
       </div>
