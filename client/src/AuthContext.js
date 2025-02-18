@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
       setIsAuthenticated(data.isAuthenticated);
       setUser(data.user);
     } catch (error) {
-      console.error('Auth check failed:', error);
+      console.error('서버 오류가 발생해 인증 확인 불가');
     }
   };
 

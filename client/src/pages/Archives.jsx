@@ -8,7 +8,7 @@ function MainContent() {
   return (
     <section className="content">
       <div className="home-header">
-        {isAuthenticated === true ? <h1 id="username">{user.user_handle} 님에게 공개하는 나의 업적</h1> : <h1>이걸 보고 있는 당신에게 공개하는 나의 업적적</h1>}
+        {isAuthenticated === true ? <h1 id="username">{user.user_handle} 님에게 공개하는 나의 업적</h1> : <h1>업적</h1>}
       </div>
 
       <div className="notice-section">
@@ -17,8 +17,8 @@ function MainContent() {
         </div>
         <div className="item-grid">
           <div className="item-card">
-            <h3>업적 대신 목표</h3>
-            <p>업적은 아직 없지만 리눅스 서버 구축을 목표로 합니다</p>
+            <h3>없어요</h3>
+            <p>네 없어요</p>
           </div>
         </div>
       </div>

@@ -4,6 +4,7 @@ import styles from '../styles/auth.module.css';
 import logo from '../assets/img/logo_background.svg';
 
 function Signup() {
+  const [DisplayName, setDisplayName] = useState('');
   const [userHandle, setUserHandle] = useState('');
   const [password, setPassword] = useState('');
   const [passwordCheck, setPasswordCheck] = useState('');
@@ -21,7 +22,7 @@ function Signup() {
       const response = await fetch('/api/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userHandle, password }),
+        body: JSON.stringify({ DisplayName ,userHandle, password }),
       });
       const data = await response.json();
       if (response.ok) {
@@ -45,6 +46,15 @@ function Signup() {
         </div>
 
         <form onSubmit={handleSubmit}>
+          <label htmlFor="DisplayName">이름:</label>
+          <input
+            type="text"
+            id="DisplayName"
+            value={DisplayName}
+            onChange={(e) => setDisplayName(e.target.value)}
+            required
+          />
+
           <label htmlFor="userHandle">아이디:</label>
           <input
             type="text"

@@ -18,13 +18,19 @@ async function getPost(req, res) {
 
 async function getAllPosts(req, res) {
   try {
-    const page = parseInt(req.query.page) || 1; // 페이지 번호
-    const limit = parseInt(req.query.limit) || 10; // 페이지당 게시물 개수
-    const skip = (page - 1) * limit; // 건너뛸 게시물 개수
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+    const rankFilter = req.query.rank; // 필터 값
+
+    let filter = {};
+    if (rankFilter && rankFilter !== "") {
+      filter.rank = rankFilter; // rankFilter가 있을 때만 필터 적용
+    }
 
     const posts = await getPostsCollection()
-      .find()
-      .sort({ createdAt: -1 }) // 최신 게시물이 먼저 오도록 정렬
+      .find(filter)
+      .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit)
       .toArray();
@@ -33,13 +39,14 @@ async function getAllPosts(req, res) {
       const user = await getUsersCollection().findOne({ _id: new ObjectId(post.a_id) });
       if (user) {
         post.author = user.userHandle;
+        post.d_author = user.DisplayName;
       }
     }
 
     res.json(posts);
   } catch (error) {
-    console.error('Error fetching posts:', error);
-    res.status(500).json({ message: '서버 오류가 발생했습니다.' });
+    console.error("Error fetching posts:", error);
+    res.status(500).json({ message: "서버 오류가 발생했습니다." });
   }
 }
 
@@ -60,7 +67,11 @@ async function createPost(req, res) {
 
     if (user.rank != 0) {
       if (newPost.title && newPost.description && (newPost.tags === undefined || (Array.isArray(newPost.tags) && (newPost.tags.length === 0 || newPost.tags.length > 0)))) {
-        newPost.rank = user.rank === 5 ? "관리자" : "유저";
+        newPost.rank =
+        user.rank === 5 ? "포트폴리오" :
+        user.rank === 4 ? "개발" :
+        user.rank === 3 ? "고정됨" :
+        "알 수 없음";
         newPost.date = formatDate(new Date());
         newPost.createdAt = new Date();
         newPost.author = userData.userHandle;

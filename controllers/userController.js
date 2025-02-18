@@ -23,7 +23,7 @@ const signupLimiter = rateLimit({
 });
 
 async function signup(req, res) {
-    const { userHandle, password } = req.body;
+    const { DisplayName ,userHandle, password } = req.body;
 
     try {
         const usersCollection = getUsersCollection();
@@ -34,7 +34,7 @@ async function signup(req, res) {
         }
 
         const hashedPassword = await bcrypt.hash(password, saltRounds);
-        await usersCollection.insertOne({ userHandle, password: hashedPassword, rank: 0 });
+        await usersCollection.insertOne({ DisplayName, userHandle, password: hashedPassword, rank: 0 });
 
         res.status(200).json({ message: '회원가입이 완료되었습니다.' });
     } catch (error) {
@@ -48,14 +48,14 @@ async function login(req, res) {
 
     try {
         const usersCollection = getUsersCollection();
-        const user = await usersCollection.findOne({ userHandle });
+        let user = await usersCollection.findOne({ userHandle });
 
         if (!user) {
-            return res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
+            return res.status(401).json({ message: '사용자를 찾을 수 없습니다.' });
         }
-
+        
         if (!user.password) {
-            return res.status(500).json({ message: '비밀번호 데이터가 손상되었습니다.' });
+            return res.status(401).json({ message: '로그인 할 수 없습니다.' });
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
@@ -65,14 +65,18 @@ async function login(req, res) {
 
         req.session.user = {
             id: user._id,
+            display_name: user.DisplayName,
             user_handle: user.userHandle,
             rank: user.rank,
         };
 
-        res.status(200).json({ message: '로그인 성공', user: { user_handle: user.userHandle, rank: user.rank } });
+        res.status(200).json({
+            message: '로그인 성공',
+            user: { display_name: user.DisplayName, user_handle: user.userHandle, rank: user.rank },
+        });
     } catch (error) {
         console.error('Login error:', error);
-        res.status(500).json({ message: '서버 오류가 발생했습니다.' });
+        res.status(500).json({ message: '알 수 없는 오류가 발생했습니다.' });
     }
 }
 

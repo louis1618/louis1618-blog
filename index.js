@@ -9,6 +9,7 @@ const { ObjectId } = require('mongodb');
 const userRoutes = require('./routes/userRoutes');
 const postRoutes = require('./routes/postRoutes');
 const commentRoutes = require('./routes/commentRoutes');
+const randomstring = require('randomstring');
 require('dotenv').config();
 
 const app = express();
@@ -50,18 +51,73 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.use('/dev-tools/docs/apis', swaggerSetup, swaggerDocs);
 
+async function generateUniqueUserHandle(usersCollection) {
+    let userHandle;
+    let isUnique = false;
+    
+    while (!isUnique) {
+        userHandle = `user-${randomstring.generate({ length: 6, charset: 'numeric' })}`;
+        const existingUser = await usersCollection.findOne({ userHandle });
+        if (!existingUser) {
+            isUnique = true;
+        }
+    }
+    return userHandle;
+}
+
+async function generateRandomDisplayName() {
+    return `User_${randomstring.generate({ length: 8, charset: 'alphabetic' })}`;
+}
+
 app.use(async (req, res, next) => {
     if (req.session.user && req.session.user.id) {
-        const usersCollection = getUsersCollection();
-        const updatedUser = await usersCollection.findOne({ _id: new ObjectId(req.session.user.id) });
-        if (updatedUser) {
+        try {
+            const usersCollection = getUsersCollection();
+            const updatedUser = await usersCollection.findOne({ _id: new ObjectId(req.session.user.id) });
+
+            if (!updatedUser) {
+                req.session.destroy((err) => {
+                    if (err) {
+                        console.error("세션 삭제 중 오류 발생:", err);
+                    }
+                    res.clearCookie('connect.sid');
+                    return res.status(401).send('오류가 발생했습니다. 다시 로그인해주세요.');
+                });
+                return;
+            }
+
+            // user.DisplayName 없으면 생성
+            if (!updatedUser.DisplayName) {
+                updatedUser.DisplayName = await generateRandomDisplayName();
+                await usersCollection.updateOne({ _id: updatedUser._id }, { $set: { DisplayName: updatedUser.DisplayName } });
+            }
+
+            // user.userHandle 없으면 생성
+            if (!updatedUser.userHandle) {
+                updatedUser.userHandle = await generateUniqueUserHandle(usersCollection);
+                await usersCollection.updateOne({ _id: updatedUser._id }, { $set: { userHandle: updatedUser.userHandle } });
+            }
+
+            // user.rank가 없으면 기본값 0 설정
+            if (updatedUser.rank === undefined) {
+                updatedUser.rank = 0;
+                await usersCollection.updateOne({ _id: updatedUser._id }, { $set: { rank: updatedUser.rank } });
+            }
+
+            // 세션에 업데이트된 사용자 정보 저장
+            req.session.user.display_name = updatedUser.DisplayName;
             req.session.user.user_handle = updatedUser.userHandle;
             req.session.user.rank = updatedUser.rank;
+
             req.session.save((err) => {
                 if (err) {
                     console.error("세션 저장 중 오류 발생:", err);
                 }
             });
+
+        } catch (error) {
+            console.error("유저 조회 중 오류 발생:", error);
+            return res.status(500).send('서버 오류');
         }
     }
     next();

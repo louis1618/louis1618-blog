@@ -16,10 +16,20 @@ import NoPage from './components/404';
 import PostDetail from './components/PostDetail';
 import { AuthProvider, AuthContext } from './AuthContext';
 
-function PrivateRoute({ children }) {
-  const { isAuthenticated } = useContext(AuthContext);
-  return isAuthenticated ? children : <Navigate to="/login" />;
-}
+import SettingLayout from './components/SettingLayout';
+import SettingsAccount from './pages/SettingPage/account';
+import SettingsPreferences from './pages/SettingPage/preferences.jsx';
+
+// function PrivateRoute({ children }) {
+//   const { isAuthenticated } = useContext(AuthContext);
+//   const location = useLocation();
+
+//   return isAuthenticated ? (
+//     children
+//   ) : (
+//     <Navigate to={`/auth/login?redirect=${encodeURIComponent(location.pathname)}`} />
+//   );
+// }
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -31,7 +41,6 @@ function App() {
     script.src = 'https://kit.fontawesome.com/3c78583699.js';
     script.crossOrigin = 'anonymous';
     script.async = true;
-
     document.head.appendChild(script);
   }, []);
 
@@ -84,19 +93,28 @@ function App() {
             </Route>
 
             <Route element={<MainLayout />}>
-                <Route path="/home" element={<Home />} />
-                <Route path="/project" element={<Project />} />
-                <Route path="/archives" element={<Archives />} />
-                <Route path="/source" element={<Source />} />
-                <Route path="/posts/view/:id" element={<PostDetail/>} />
-                <Route path="/about" element={<About/>} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/project" element={<Project />} />
+              <Route path="/archives" element={<Archives />} />
+              <Route path="/source" element={<Source />} />
+              <Route path="/posts/view/:id" element={<PostDetail />} />
+              <Route path="/about" element={<About />} />
             </Route>
 
-            <Route element={<PrivateRoute><MainLayout /></PrivateRoute>}>
+            {/* 설정 페이지 */}
+            <Route path="/settings/*" element={<SettingLayout />} >
+              <Route index element={isAuthenticated ? <Navigate to="/settings/account"/> : <Navigate to="/settings/preferences" />} />
+              <Route path="account" element={isAuthenticated ? <SettingsAccount /> : <Navigate to="/settings/preferences" />} />
+              <Route path="preferences" element={<SettingsPreferences />} />
             </Route>
+
+            {/* <Route path="/settings/" element={<PrivateRoute><SettingLayout /></PrivateRoute>} >
+              <Route path="/settings/" element={<Navigate to="/settings/account" />} />
+              <Route path="/settings/account" element={<SettingsAccount />} />
+            </Route> */}
 
             <Route element={<NoPage />}>
-              <Route path="*"element={<NotFound />} />
+              <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>
         )}

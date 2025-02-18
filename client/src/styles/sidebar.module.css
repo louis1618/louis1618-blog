@@ -1,0 +1,214 @@
+html, body, #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* 스크롤을 전체적으로 숨김, 필요한 요소에만 적용 */
+}
+
+aside {
+    width: 270px;
+    background-color: #121317;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: 1px solid #333;
+    overflow-y: auto;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+aside::-webkit-scrollbar {
+    width: 5px;
+}
+
+aside::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+}
+
+aside::-webkit-scrollbar-track {
+    background: #121317;
+}
+
+.logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 24px;
+    margin-top: 10px;
+}
+
+.logo-link {
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 2px;
+}
+
+.logo_img {
+    width: 90px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.header_title {
+    font-family: inherit;
+    font-size: 1.5rem;
+    font-weight: 900;
+    width: fit-content;
+    margin-left: 5px;
+    line-height: 1.2;
+    letter-spacing: 0.25px;
+    margin-top: 0.3rem;
+    margin-bottom: 0.5rem;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    transition: color 0.3s;
+}
+
+.header_subtitle {
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 900;
+    width: fit-content;
+    margin-left: 5px;
+    line-height: 1.2;
+    letter-spacing: 0.25px;
+    margin-top: 0.2rem;
+    margin-bottom: 0.5rem;
+    color: #ffffffce;
+    display: inline-block;
+    transition: color 0.3s;
+}
+
+/* hover 효과 추가 */
+.logo-link:hover .logo_img {
+    opacity: 0.5;
+}
+
+.header_title:hover {
+    color: #948f8f;
+}
+
+.side-nav {
+    flex-grow: 1;
+    margin-top: 20px;
+    padding: 3px;
+}
+
+.side-nav a {
+    display: flex;
+    align-items: center;
+    padding: 14px 27px;
+    color: #ffffffbb;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    border-radius: 30px;
+    margin-bottom: 5px;
+    font-weight:500;
+}
+
+.side-nav a.active {
+    background-color: #3d3f46;
+    font-weight: 600;
+    color: #fff
+}
+
+.side-nav a i {
+    margin-right: 20px;
+    width: 20px;
+  }
+
+.side-nav a:not(.active):hover {
+    background-color: #2C2E34;
+}
+
+.quick-links {
+    margin-top: 20px;
+}
+
+.quick-links .user-button {
+    display: flex;
+    align-items: center;
+    padding: 10px 27px;
+    color: #ffffff;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    border-radius: 30px;
+    margin-bottom: 5px;
+    font-weight:bold;
+}
+
+.quick-links .user-button.active {
+    background-color: #3d3f46;
+}
+
+.quick-links .user-button:not(.active):hover {
+    background-color: #2C2E34;
+}
+
+.quick-links .user-button .user-popup button:hover {
+    background-color: #2C2E34;
+  }
+
+.quick-links .user-button i {
+    margin-right: 20px;
+    width: 20px;
+    text-align: center;
+}
+
+.quick-links .user-button {
+  position: relative;
+  cursor: pointer;
+}
+
+.quick-links .user-button .user-popup {
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #1f2024;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  width: 250px;
+  z-index: 10;
+  border-radius: 6px;
+}
+
+.quick-links .user-button .user-popup button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  background-color: transparent;
+  color: #ffffff;
+  font-size: 16px;
+  text-align: left;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.quick-links .user-button .user-popup button i {
+  margin-right: 10px;
+  width: 20px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+.user-display-name {
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.user-handle {
+    font-size: 0.9em;
+    color: #888;
+    margin-top: 5px;
+}
