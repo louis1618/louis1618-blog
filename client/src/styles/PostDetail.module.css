@@ -1,0 +1,124 @@
+.post-layout {
+    max-width: 800px;
+}
+  
+.post-detail {
+  background-color: #1a1a1b;
+  color: #d7dadc;
+  border-radius: 8px;
+  padding: 20px;
+  position: relative;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #c6c7c883;
+  border: none;
+  color: #d7dadc;
+  font-size: 24px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.back-button:hover {
+  background-color: #a0a1a4;
+}
+
+.back-button:hover {
+  color: #ffffff;
+}
+
+.post-details-docs {
+  font-size: 16px;
+  color: #cccccc;
+  margin-bottom: 10px;
+}
+
+.post-meta {
+  margin-bottom: 20px;
+  color: #818384;
+}
+
+.post-image {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.post-tags {
+  margin-top: 25px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tag {
+  background-color: #373c3f;
+  color: #ffffff;
+  padding: 5px 10px;
+  border-radius: 15px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.post-comments {
+  margin-top: 2rem;
+}
+
+.add-comment {
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-family: Arial, sans-serif;
+}
+
+.add-comment textarea {
+  height: 80px;
+  padding: 0.5rem;
+  border: 1px solid #333;
+  border-radius: 4px;
+  background-color: #222;
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  color: #fff;
+  resize: vertical;
+}
+
+.add-comment button {
+  background-color: #007bff; /* 파란색 배경 */
+  color: #fff; /* 흰색 텍스트 */
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 0.5rem; /* 텍스트 영역과의 간격 */
+}
+
+.comment {
+  background-color: #222; /* 어두운 배경색 */
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 0.7rem; /* 댓글 간 간격 */
+}
+
+.comment-author {
+  font-weight: bold; /* 작성자 이름 굵게 표시 */
+  margin-right: 0.4rem; /* 작성자 이름과 내용 사이 간격 */
+}
+
+.comment-date {
+  font-size: 0.9rem; /* 작성 시간 정보 크기 조절 */
+  color: #888; /* 회색 텍스트 */
+  margin-top: 0.4rem; /* 내용과 작성 시간 정보 사이 간격 */
+}
+
+.prs-message p {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color:#fff;
+}

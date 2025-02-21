@@ -1,0 +1,310 @@
+html, body, #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* 스크롤을 전체적으로 숨김, 필요한 요소에만 적용 */
+}
+
+aside {
+    width: 270px;
+    background-color: #121317;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: 1px solid #333;
+    overflow-y: auto;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+aside::-webkit-scrollbar {
+    width: 5px;
+}
+
+aside::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+}
+
+aside::-webkit-scrollbar-track {
+    background: #121317;
+}
+
+.logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 24px;
+    margin-top: 10px;
+}
+
+.logo-link {
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 2px;
+}
+
+.logo_img {
+    width: 90px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.header_title {
+    font-family: inherit;
+    font-size: 1.5rem;
+    font-weight: 900;
+    width: fit-content;
+    margin-left: 5px;
+    line-height: 1.2;
+    letter-spacing: 0.25px;
+    margin-top: 0.3rem;
+    margin-bottom: 0.5rem;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    transition: color 0.3s;
+}
+
+.header_subtitle {
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 900;
+    width: fit-content;
+    margin-left: 5px;
+    line-height: 1.2;
+    letter-spacing: 0.25px;
+    margin-top: 0.2rem;
+    margin-bottom: 0.5rem;
+    color: #ffffffce;
+    display: inline-block;
+    transition: color 0.3s;
+}
+
+/* hover 효과 추가 */
+.logo-link:hover .logo_img {
+    opacity: 0.5;
+}
+
+.header_title:hover {
+    color: #948f8f;
+}
+
+.side-nav {
+    flex-grow: 1;
+    margin-top: 20px;
+    padding: 3px;
+}
+
+.side-nav a {
+    display: flex;
+    align-items: center;
+    padding: 14px 27px;
+    color: #ffffffbb;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    border-radius: 30px;
+    margin-bottom: 5px;
+    font-weight:500;
+}
+
+.side-nav a.active {
+    background-color: #3d3f46;
+    font-weight: 600;
+    color: #fff
+}
+
+.side-nav a i {
+    margin-right: 20px;
+    width: 20px;
+  }
+
+.side-nav a:not(.active):hover {
+    background-color: #2C2E34;
+}
+
+.home-header h1 {
+  margin: 0;
+  font-size: 24px;
+  padding-bottom: 20px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.section-header h2 {
+  font-size: 20px;
+}
+
+.create-button {
+  background-color: #393939;
+  color: white;
+  padding: 5px 10px;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.item-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  margin-top: 0px;
+}
+
+.item-card {
+  background-color: #121317;
+  border-radius: 8px;
+  padding: 20px;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  margin-right: 15px;
+}
+
+.item-card:hover {
+  background-color: #2d2f36;
+  border:1px solid rgba(255, 255, 255, 0.716);
+}
+
+.item-card img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.set_header_title {
+    font-family: inherit;
+    font-size: 1.7rem;
+    font-weight: 900;
+    width: fit-content;
+    line-height: 1.2;
+    letter-spacing: 0.25px;
+    margin-top: 0.3rem;
+    margin-bottom: 0.5rem;
+    color: #fff;
+    display: inline-block;
+}
+
+.set_header_subtitle {
+    font-size: 1.1rem;
+    font-weight: 600;
+    width: fit-content;
+    margin-left: 5px;
+    line-height: 1.2;
+    letter-spacing: 0.25px;
+    margin-top: 0.2rem;
+    margin-bottom: 0.5rem;
+    color: #ffffffce;
+    display: inline-block;
+}
+
+.theme-toggle-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+  
+.theme-toggle-btn:hover {
+    background-color: #45a049;
+}
+
+.settings-menu-toggle {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 1002; /* 다른 요소들보다 위에 표시 */
+  padding: 8px 16px;
+  margin: 10px 0;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.main-menu-button {
+  display: none;
+  align-items: center;
+  padding: 8px 16px;
+  margin-bottom: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.main-menu-button i {
+  margin-right: 8px;
+}
+
+@media screen and (max-width: 768px) {
+  .logo-container {
+    margin-left: 16px;
+    margin-top: 5px;
+  }
+
+  .logo_img {
+    width: 70px;
+  }
+
+  .header_title {
+    font-size: 1.2rem;
+    margin-top: 0.2rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .header_subtitle {
+    font-size: 0.8rem;
+  }
+
+  .side-nav a {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+  }
+
+  .set_header_title {
+    font-size: 1.4rem;
+  }
+
+  .set_header_subtitle {
+    font-size: 1rem;
+  }
+
+  .theme-toggle-btn {
+    padding: 8px 16px;
+    font-size: 0.9em;
+  }
+
+  .settings-menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .settings-sidebar {
+    position: fixed;
+    top: 60px; /* 모바일 메뉴 높이만큼 띄우기 */
+    left: -270px;
+    transition: transform 0.3s ease-in-out;
+    z-index: 999;
+  }
+
+  .settings-sidebar.mobile-open {
+    transform: translateX(270px);
+  }
+}

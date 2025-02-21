@@ -1,0 +1,105 @@
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100dvh;
+  background-color: #f4f4f4;
+}
+  
+.container {
+  width: 100%;
+  max-width: 400px;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header2 {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+  
+.logo_img {
+  max-width: 150px;
+  height: auto;
+  filter: invert(80%);
+}
+  
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+  
+label {
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+  
+input[type="text"],
+input[type="password"] {
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd; /* 입력 필드 테두리 색상상 */
+  border-radius: 6px;
+  font-size: 16px;
+  border: none;
+  border-bottom: 2px solid #ddd;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  outline: none;
+  box-shadow: none;
+  border-bottom: 2px solid #2196f3;
+}
+
+.custombutton {
+  padding: 12px;
+  background-color: #2196f3;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  background-color: #4285f4;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.custombutton:hover {
+  background-color: #3367d6;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.signupLink {
+  margin-top: 20px;
+  font-size: 14px;
+  text-align: center;
+  color: #757575;
+}
+
+.signupLink a {
+  color: #2196f3;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.signupLink a:hover {
+  text-decoration: underline;
+}
+
+/* 모바일 */
+@media (max-width: 480px) {
+  .container {
+    max-width: 90%;
+    margin: 20px;
+  }
+}
