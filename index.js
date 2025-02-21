@@ -47,7 +47,7 @@ app.use(session({
     }
 }));
 
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, 'client/dist')));
 
 app.use('/dev-tools/docs/apis', swaggerSetup, swaggerDocs);
 
